@@ -15,10 +15,15 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member(200L, "member200");
-            em.persist(member);
+            Member member = em.find(Member.class, 150L);
+            member.setName("BBBBBB");
 
-            em.flush();
+//            특정 entity 만 준 영속 상태로 만드는 경우
+//            em.detach(member);
+//            Persistence context의 모든 Entity를 준 영속 상태로 만드는 경우
+            em.clear();
+
+            Member member2 = em.find(Member.class, 150L);
 
             System.out.println("=========");
             tx.commit();
