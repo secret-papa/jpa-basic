@@ -1,5 +1,7 @@
 package hellojpa;
 
+import hellojpa.domain.Member;
+import hellojpa.domain.Team;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -16,6 +18,23 @@ public class JapMain {
         tx.begin();
 
         try {
+
+            Team team = new Team();
+            team.setName("TeamA");
+
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
+
+            em.persist(member);
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = em.find(Team.class, findMember.getTeamId());
+
+            System.out.println("findTeam = " + findTeam);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
