@@ -23,6 +23,10 @@ public class Order {
 
     private LocalDateTime orderDate;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     public OrderStatus getStatus() {
         return status;
     }

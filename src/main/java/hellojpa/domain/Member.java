@@ -28,6 +28,10 @@ public class Member {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Item> items = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
