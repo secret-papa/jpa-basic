@@ -1,9 +1,6 @@
 package hellojpa;
 
-import hellojpa.domain.Member;
-import hellojpa.domain.Order;
-import hellojpa.domain.OrderItem;
-import hellojpa.domain.Team;
+import hellojpa.domain.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -21,8 +18,20 @@ public class JapMain {
         tx.begin();
 
         try {
-            Order order = new Order();
-            order.addOrderItem(new OrderItem());
+            Movie movie = new Movie();
+            movie.setDirector("aaa");
+            movie.setActor("bbb");
+            movie.setName("바람과 함께 사라지다");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+
+            em.flush();
+            em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie);
+
 
             tx.commit();
         } catch (Exception e) {
