@@ -17,11 +17,21 @@ public class JapMain {
         tx.begin();
 
         try {
-             Book book = new Book();
-             book.setName("JPA");
-             book.setAuthor("이승하");
 
-            em.persist(book);
+            Member member = new Member();
+            member.setName("hello");
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+//            Member findMember = em.find(Member.class, member.getId());
+            Member findMember = em.getReference(Member.class, member.getId());
+            System.out.println("findMember = " + findMember.getClass());
+            System.out.println("findMember = " + findMember.getId());
+            System.out.println("findMember = " + findMember.getName());
+
 
             tx.commit();
         } catch (Exception e) {
