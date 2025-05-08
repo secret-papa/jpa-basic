@@ -17,21 +17,24 @@ public class JapMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("Team 1");
+            em.persist(team);
 
             Member member = new Member();
             member.setName("hello");
+            member.setTeam(team);
 
             em.persist(member);
 
             em.flush();
             em.clear();
 
-//            Member findMember = em.find(Member.class, member.getId());
-            Member findMember = em.getReference(Member.class, member.getId());
-            System.out.println("findMember = " + findMember.getClass());
-            System.out.println("findMember = " + findMember.getId());
-            System.out.println("findMember = " + findMember.getName());
 
+            Member m = em.find(Member.class, member.getId());
+            System.out.println("m.getTeam() = " + m.getTeam().getClass());
+            System.out.println("===============");
+            m.getTeam().getName();
 
             tx.commit();
         } catch (Exception e) {
