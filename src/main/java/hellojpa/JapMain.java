@@ -1,12 +1,10 @@
 package hellojpa;
 
 import hellojpa.domain.*;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class JapMain {
     public static void main(String[] args) {
@@ -30,11 +28,8 @@ public class JapMain {
             em.flush();
             em.clear();
 
-
-            Member m = em.find(Member.class, member.getId());
-            System.out.println("m.getTeam() = " + m.getTeam().getClass());
-            System.out.println("===============");
-            m.getTeam().getName();
+//            Member m = em.find(Member.class, member.getId());
+            List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
 
             tx.commit();
         } catch (Exception e) {
