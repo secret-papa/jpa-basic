@@ -13,9 +13,6 @@ public class Member extends BaseEntity {
     @Column(name = "MEMBER_ID")
     private Long id;
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
@@ -31,6 +28,20 @@ public class Member extends BaseEntity {
     @ManyToMany
     @JoinTable(name = "MEMBER_PRODUCT")
     private List<Item> items = new ArrayList<>();
+
+    @Embedded
+    private Period workPeriod;
+
+    @Embedded
+    private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "WORK_CITY")),
+            @AttributeOverride(name = "street", column = @Column(name = "WORK_STREET")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "WORK_ZIPCODE"))
+    })
+    private Address workAddress;
 
     public Long getId() {
         return id;
@@ -48,28 +59,28 @@ public class Member extends BaseEntity {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    public String getStreet() {
-        return street;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 
     public List<Order> getOrders() {

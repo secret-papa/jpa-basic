@@ -3,9 +3,6 @@ package hellojpa;
 import hellojpa.domain.*;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 public class JapMain {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -15,21 +12,13 @@ public class JapMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("Team 1");
-            em.persist(team);
 
             Member member = new Member();
             member.setName("hello");
-            member.setTeam(team);
+            member.setHomeAddress(new Address("city", "street", "zipcode"));
+            member.setWorkPeriod(new Period());
 
             em.persist(member);
-
-            em.flush();
-            em.clear();
-
-//            Member m = em.find(Member.class, member.getId());
-            List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
 
             tx.commit();
         } catch (Exception e) {
