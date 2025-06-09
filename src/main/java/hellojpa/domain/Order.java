@@ -13,6 +13,10 @@ public class Order {
     @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
+    private int orderAmount;
+
+    @Embedded
+    private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
@@ -26,6 +30,30 @@ public class Order {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
+
+    public int getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(int orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
 
     public OrderStatus getStatus() {
         return status;
