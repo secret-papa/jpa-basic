@@ -20,7 +20,7 @@ public class JapMain {
                 em.persist(team);
 
                 Member member = new Member();
-                member.setName("teamA");
+                member.setName("member1");
                 member.setAge(10);
                 member.setTeam(team);
 
@@ -29,7 +29,7 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m, Team t where m.name = t.name";
+            String query = "select m from Member m join Team t on m.name = t.name";
             List<Member> result = em.createQuery(query, Member.class)
                     .getResultList();
 
