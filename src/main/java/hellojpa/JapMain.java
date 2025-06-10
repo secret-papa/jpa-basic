@@ -29,7 +29,7 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m join Team t on m.name = t.name";
+            String query = "select m from Member m left join Team t on m.name = t.name";
             List<Member> result = em.createQuery(query, Member.class)
                     .getResultList();
 
