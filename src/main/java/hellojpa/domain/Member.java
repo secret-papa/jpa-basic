@@ -25,7 +25,7 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -138,5 +138,10 @@ public class Member extends BaseEntity {
 
     public void setAddressHistory(List<AddressEntity> addressHistory) {
         this.addressHistory = addressHistory;
+    }
+
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
