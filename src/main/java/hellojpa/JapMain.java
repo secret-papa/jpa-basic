@@ -24,7 +24,7 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select concat('a', 'b') from Member m";
+            String query = "select substring(m.name, 2, 3) from Member m";
             List<String> result = em.createQuery(query, String.class).getResultList();
 
             for (String s : result) {
