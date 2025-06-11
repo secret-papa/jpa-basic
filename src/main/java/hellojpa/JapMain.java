@@ -24,13 +24,12 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select nullif(m.name, '관리자') from Member m";
+            String query = "select concat('a', 'b') from Member m";
             List<String> result = em.createQuery(query, String.class).getResultList();
 
             for (String s : result) {
                 System.out.println("s = " + s);
             }
-
 
             tx.commit();
         } catch (Exception e) {
