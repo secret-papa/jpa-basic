@@ -14,21 +14,48 @@ public class JapMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setName("관리자");
-            member.setAge(10);
-            member.setMemberType(MemberType.ADMIN);
+            Team teamA = new Team();
+            teamA.setName("팀A");
 
-            em.persist(member);
+            em.persist(teamA);
+
+            Team teamB = new Team();
+            teamB.setName("팀B");
+
+            em.persist(teamB);
+
+            Member member1 = new Member();
+            member1.setName("회원1");
+            member1.setAge(10);
+            member1.setMemberType(MemberType.ADMIN);
+            member1.changeTeam(teamA);
+
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setName("회원2");
+            member2.setAge(12);
+            member2.setMemberType(MemberType.ADMIN);
+            member2.changeTeam(teamA);
+
+            em.persist(member2);
+
+            Member member3 = new Member();
+            member3.setName("회원3");
+            member3.setAge(13);
+            member3.setMemberType(MemberType.ADMIN);
+            member3.changeTeam(teamB);
+
+            em.persist(member3);
 
             em.flush();
             em.clear();
 
-            String query = "select locate('de', 'abcde') from Member m";
-            List<Integer> result = em.createQuery(query, Integer.class).getResultList();
+            String query = "select m from Member m join fetch m.team";
+            List<Member> result = em.createQuery(query, Member.class).getResultList();
 
-            for (Integer s : result) {
-                System.out.println("s = " + s);
+            for (Member m : result) {
+                System.out.println("m.name = " + m.getName() + ", " + "t.name = " + m.getTeam().getName());
             }
 
             tx.commit();
