@@ -16,6 +16,9 @@ public class Member extends BaseEntity {
     private Long id;
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
     private int age;
 
     @OneToMany(mappedBy = "member")
@@ -70,6 +73,14 @@ public class Member extends BaseEntity {
 
     public int getAge() {
         return age;
+    }
+
+    public MemberType getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(MemberType memberType) {
+        this.memberType = memberType;
     }
 
     public void setAge(int age) {

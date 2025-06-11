@@ -14,26 +14,24 @@ public class JapMain {
         tx.begin();
 
         try {
-                Team team = new Team();
-                team.setName("teamA");
+            Member member = new Member();
+            member.setName("member1");
+            member.setAge(10);
+            member.setMemberType(MemberType.ADMIN);
 
-                em.persist(team);
-
-                Member member = new Member();
-                member.setName("member1");
-                member.setAge(10);
-                member.setTeam(team);
-
-                em.persist(member);
+            em.persist(member);
 
             em.flush();
             em.clear();
 
-            String query = "select m from Member m left join Team t on m.name = t.name";
+            String query = "select m from Member m where m.memberType = :memberType";
             List<Member> result = em.createQuery(query, Member.class)
+                    .setParameter("memberType", MemberType.ADMIN)
                     .getResultList();
 
-            System.out.println("result = " + result.size());
+            for (Member m : result) {
+                System.out.println("m = " + m.getName());
+            }
 
             tx.commit();
         } catch (Exception e) {
