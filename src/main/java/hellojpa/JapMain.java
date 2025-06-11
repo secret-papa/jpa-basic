@@ -24,10 +24,10 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select substring(m.name, 2, 3) from Member m";
-            List<String> result = em.createQuery(query, String.class).getResultList();
+            String query = "select locate('de', 'abcde') from Member m";
+            List<Integer> result = em.createQuery(query, Integer.class).getResultList();
 
-            for (String s : result) {
+            for (Integer s : result) {
                 System.out.println("s = " + s);
             }
 
