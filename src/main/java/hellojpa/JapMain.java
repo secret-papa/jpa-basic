@@ -51,9 +51,9 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m where m = :member";
+            String query = "select m from Member m where m.team = :team";
             Member findMember = em.createQuery(query, Member.class)
-                    .setParameter("member", member1)
+                    .setParameter("team", teamB)
                     .getSingleResult();
 
             System.out.println("findMember = " + findMember.getName());
