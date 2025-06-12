@@ -51,14 +51,12 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select t from Team t join fetch t.members";
-            List<Team> result = em.createQuery(query, Team.class).getResultList();
+            String query = "select m from Member m where m = :member";
+            Member findMember = em.createQuery(query, Member.class)
+                    .setParameter("member", member1)
+                    .getSingleResult();
 
-            System.out.println("result = " + result.size());
-
-            for (Team t : result) {
-                System.out.println("t.name = " + t.getName() + "|members=" + t.getMembers().size());
-            }
+            System.out.println("findMember = " + findMember.getName());
 
             tx.commit();
         } catch (Exception e) {
