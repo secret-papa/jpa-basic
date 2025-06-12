@@ -51,8 +51,10 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select distinct t from Team t join fetch t.members";
+            String query = "select t from Team t join t.members m";
             List<Team> result = em.createQuery(query, Team.class).getResultList();
+
+            System.out.println("result = " + result.size());
 
             for (Team t : result) {
                 System.out.println("t.name = " + t.getName() + "|members=" + t.getMembers().size());
