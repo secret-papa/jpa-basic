@@ -51,12 +51,13 @@ public class JapMain {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m where m.team = :team";
-            Member findMember = em.createQuery(query, Member.class)
-                    .setParameter("team", teamB)
-                    .getSingleResult();
+            List<Member> resultList = em.createNamedQuery("Member.findByName", Member.class)
+                    .setParameter("name", member1.getName())
+                    .getResultList();
 
-            System.out.println("findMember = " + findMember.getName());
+            for (Member member : resultList) {
+                System.out.println("member = " + member.getName());
+            }
 
             tx.commit();
         } catch (Exception e) {
