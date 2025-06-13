@@ -48,16 +48,14 @@ public class JapMain {
 
             em.persist(member3);
 
-            em.flush();
+            int resultCount = em.createQuery("update Member m set m.age = 20").executeUpdate();
+
+            System.out.println("resultCount = " + resultCount);
+
             em.clear();
+            Member findMember = em.find(Member.class, member1.getId());
 
-            List<Member> resultList = em.createNamedQuery("Member.findByName", Member.class)
-                    .setParameter("name", member1.getName())
-                    .getResultList();
-
-            for (Member member : resultList) {
-                System.out.println("member = " + member.getName());
-            }
+            System.out.println("findMember = " + findMember.getAge());
 
             tx.commit();
         } catch (Exception e) {
